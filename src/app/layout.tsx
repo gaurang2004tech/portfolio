@@ -18,12 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-          rel="stylesheet"
-        />
+        {/* Fonts moved to _document.tsx */}
+  {/* Favicon and theme color */}
+  {/* Prefer the .ico file for broadest browser support; keep SVG as a modern fallback */}
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+        <meta name="theme-color" content="#0ea5a4" />
       </head>
       <body className="antialiased">
         <SmoothScroll />
