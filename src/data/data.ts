@@ -139,7 +139,7 @@ export const galleryItems: GalleryItem[] = [
       {
         label: "Ordering App",
         url: "https://app.beanbrewbeyond.com",
-        thumbnail: "/beanbrewbeyond.png",
+        thumbnail: "/b3ordering.png",
       },
     ],
   },
