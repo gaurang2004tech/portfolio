@@ -1,7 +1,8 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,66 +11,177 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-
-interface GalleryItem {
-  id: string;
-  title: string;
-  summary: string;
-  url: string;
-  image: string;
-}
+import type { GalleryItem } from "@/data/data";
 
 interface Gallery6Props {
   heading?: string;
-  demoUrl?: string;
   items?: GalleryItem[];
 }
 
+function usePortalPopover(open: boolean) {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (!open || !triggerRef.current) return;
+
+    function update() {
+      if (!triggerRef.current) return;
+      const rect = triggerRef.current.getBoundingClientRect();
+      const popoverWidth = popoverRef.current?.offsetWidth ?? 280;
+      let left = rect.left;
+      if (left + popoverWidth > window.innerWidth - 16) {
+        left = window.innerWidth - popoverWidth - 16;
+      }
+      if (left < 16) left = 16;
+      setPos({ top: rect.top - 8, left });
+    }
+
+    update();
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, [open]);
+
+  return { triggerRef, popoverRef, pos };
+}
+
+function VisitPopover({ links }: { links: NonNullable<GalleryItem["links"]> }) {
+  const [open, setOpen] = useState(false);
+  const { triggerRef, popoverRef, pos } = usePortalPopover(open);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (
+        popoverRef.current?.contains(e.target as Node) ||
+        triggerRef.current?.contains(e.target as Node)
+      )
+        return;
+      setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open, popoverRef, triggerRef]);
+
+  return (
+    <>
+      <button
+        ref={triggerRef}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen(!open);
+        }}
+        className="flex items-center text-sm font-medium hover:text-gray-900 transition-colors"
+      >
+        Visit
+        <ArrowUpRight className="ml-1.5 size-4" />
+      </button>
+      {open &&
+        createPortal(
+          <div
+            ref={popoverRef}
+            className="fixed w-64 rounded-xl border border-gray-200 bg-white shadow-lg p-2 z-[9999]"
+            style={{
+              top: pos.top,
+              left: pos.left,
+              transform: "translateY(-100%)",
+            }}
+          >
+            {links.map((link, i) => (
+              <a
+                key={i}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-lg p-2 hover:bg-gray-50 transition-colors"
+              >
+                {link.thumbnail && (
+                  <img
+                    src={link.thumbnail}
+                    alt={link.label}
+                    className="w-10 h-10 rounded-md object-cover shrink-0"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900">
+                    {link.label}
+                  </p>
+                  <p className="text-xs text-gray-500 truncate">
+                    {link.url.replace("https://", "")}
+                  </p>
+                </div>
+                <ArrowUpRight className="size-3.5 text-gray-400 shrink-0" />
+              </a>
+            ))}
+          </div>,
+          document.body,
+        )}
+    </>
+  );
+}
+
+function SummaryWithPopover({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const { triggerRef, popoverRef, pos } = usePortalPopover(open);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (
+        popoverRef.current?.contains(e.target as Node) ||
+        triggerRef.current?.contains(e.target as Node)
+      )
+        return;
+      setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open, popoverRef, triggerRef]);
+
+  return (
+    <div className="mb-4">
+      <p className="line-clamp-2 text-sm text-muted-foreground md:text-base">
+        {text}
+      </p>
+      <button
+        ref={triggerRef}
+        className="text-xs text-gray-400 hover:text-gray-600 mt-1 transition-colors"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen(!open);
+        }}
+      >
+        more...
+      </button>
+      {open &&
+        createPortal(
+          <div
+            ref={popoverRef}
+            className="fixed w-72 rounded-xl border border-gray-200 bg-white shadow-lg p-4 z-[9999]"
+            style={{
+              top: pos.top,
+              left: pos.left,
+              transform: "translateY(-100%)",
+            }}
+          >
+            <p className="text-sm text-gray-700 leading-relaxed">{text}</p>
+          </div>,
+          document.body,
+        )}
+    </div>
+  );
+}
+
 const Gallery6 = ({
-  heading = "Gallery",
-  demoUrl = "https://www.shadcnblocks.com",
-  items = [
-    {
-      id: "item-1",
-      title: "Build Modern UIs",
-      summary:
-        "Create stunning user interfaces with our comprehensive design system.",
-      url: "#",
-      image: "/images/block/placeholder-dark-1.svg",
-    },
-    {
-      id: "item-2",
-      title: "Computer Vision Technology",
-      summary:
-        "Powerful image recognition and processing capabilities that allow AI systems to analyze, understand, and interpret visual information from the world.",
-      url: "#",
-      image: "/images/block/placeholder-dark-1.svg",
-    },
-    {
-      id: "item-3",
-      title: "Machine Learning Automation",
-      summary:
-        "Self-improving algorithms that learn from data patterns to automate complex tasks and make intelligent decisions with minimal human intervention.",
-      url: "#",
-      image: "/images/block/placeholder-dark-1.svg",
-    },
-    {
-      id: "item-4",
-      title: "Predictive Analytics",
-      summary:
-        "Advanced forecasting capabilities that analyze historical data to predict future trends and outcomes, helping businesses make data-driven decisions.",
-      url: "#",
-      image: "/images/block/placeholder-dark-1.svg",
-    },
-    {
-      id: "item-5",
-      title: "Neural Network Architecture",
-      summary:
-        "Sophisticated AI models inspired by human brain structure, capable of solving complex problems through deep learning and pattern recognition.",
-      url: "#",
-      image: "/images/block/placeholder-dark-1.svg",
-    },
-  ],
+  heading = "Work",
+  items = [],
 }: Gallery6Props) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -92,9 +204,7 @@ const Gallery6 = ({
     <section className="mt-14">
       <div>
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">
-            {heading}
-          </h2>
+          <h2 className="text-xl font-semibold">{heading}</h2>
           <div className="flex shrink-0 items-center gap-2">
             <Button
               size="icon"
@@ -135,35 +245,48 @@ const Gallery6 = ({
         >
           <CarouselContent className="-mr-4">
             {items.map((item) => (
-              <CarouselItem key={item.id} className="pl-4 basis-[80%] md:basis-[452px]">
-                <a
-                  href={item.url}
-                  className="group flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex aspect-[3/2] overflow-clip rounded-xl">
-                      <div className="flex-1">
-                        <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="h-full w-full object-cover object-center"
-                          />
+              <CarouselItem
+                key={item.id}
+                className="pl-4 basis-[80%] md:basis-[452px]"
+              >
+                <div className="group flex flex-col justify-between">
+                  <a
+                    href={item.links ? undefined : item.url}
+                    target={item.links ? undefined : "_blank"}
+                    rel={item.links ? undefined : "noopener noreferrer"}
+                  >
+                    <div>
+                      <div className="flex aspect-[3/2] overflow-clip rounded-xl">
+                        <div className="flex-1">
+                          <div className="relative h-full w-full origin-bottom transition duration-300 group-hover:scale-105">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className="h-full w-full object-cover object-center"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="mb-2 line-clamp-3 break-words pt-4 text-lg font-medium md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
-                    {item.title}
-                  </div>
-                  <div className="mb-8 line-clamp-2 text-sm text-muted-foreground md:mb-12 md:text-base lg:mb-9">
-                    {item.summary}
-                  </div>
-                  <div className="flex items-center text-sm">
-                    Read more{" "}
-                    <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </a>
+                    <div className="mb-2 line-clamp-3 break-words pt-4 text-lg font-medium md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
+                      {item.title}
+                    </div>
+                  </a>
+                  <SummaryWithPopover text={item.summary} />
+                  {item.links ? (
+                    <VisitPopover links={item.links} />
+                  ) : (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-sm font-medium hover:text-gray-900 transition-colors"
+                    >
+                      Visit
+                      <ArrowUpRight className="ml-1.5 size-4" />
+                    </a>
+                  )}
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>

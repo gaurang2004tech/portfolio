@@ -5,7 +5,7 @@ export const about = {
   phone: "+91 8340333963",
   email: "rishabhkr351@gmail.com",
   about:
-    "I build AI-powered products and scalable full-stack systems. From ecommerce intelligence suites to AI career platforms, I focus on shipping production software that delivers measurable impact — faster procurement, smarter recommendations, and automated workflows.",
+    "I build AI-powered products and scalable full-stack systems: retrieval pipelines, agentic workflows, and the infrastructure to run them. I own the full lifecycle from ideation to production, focused on shipping software that delivers measurable impact, smarter systems, and automated workflows.",
 };
 
 export const seo = {
@@ -22,7 +22,6 @@ export const socials = {
 };
 
 export const skills = [
-  "JavaScript",
   "TypeScript",
   "Python",
   "SQL",
@@ -33,22 +32,17 @@ export const skills = [
   "Django",
   "FastAPI",
   "PostgreSQL",
-  "MySQL",
+  "Prisma ORM",
   "MongoDB",
-  "Supabase",
   "Redis",
-  "Vector DBs",
   "Docker",
   "AWS",
   "Nginx",
-  "GitHub Actions",
-  "Coolify",
-  "OpenAI",
-  "Anthropic",
+  "CI/CD",
+  "Vector DBs",
+  "RAG",
   "Agent SDKs",
-  "TailwindCSS",
-  "Framer Motion",
-  "Prisma ORM",
+
 ];
 
 export const experience = [
@@ -58,33 +52,39 @@ export const experience = [
     title: "CTO",
     date: "June 2025 – Present",
     bullets: [
-      "Led hiring, architecture decisions, and cross-functional engineering teams",
-      "Built AI-powered training & certification platform for Dubai Police with compliance tracking and analytics",
-      "Engineered AI onboarding system with document processing and CV-based candidate segmentation reducing onboarding time by 75%",
-      "Developed SaaS hospitality platform integrating POS, accounting, inventory, and scheduling systems",
-      "Built predictive inventory system with demand forecasting, dynamic pricing, and waste reduction",
+      "Own hiring, system architecture, technical direction, and stakeholder communication across all product lines",
+      "Built AI-powered training & certification platform for Dubai Police with compliance tracking and analytics dashboards",
+      "Engineered AI onboarding pipeline with document processing and CV-based candidate segmentation, reducing onboarding time by 75%",
+      "Architected SabaiFlow, a hospitality OS integrating POS, KDS, inventory, staff scheduling, and accounting with agentic AI features",
+      "Built Synthopia, a multi-agent AI marketing platform with brand analysis, content generation across 8 channels, and competitor intelligence",
+      "Shipped BeanBrewBeyond, a PWA ordering platform for a cafe chain with loyalty rewards, community features, and kitchen order flows",
       "Implemented AI financial analytics engine improving decision-making speed by 40%",
+    ],
+  },
+  {
+    company: "Vida Life Sciences",
+    location: "Pune, India",
+    title: "Full Stack & AI Engineer",
+    date: "Dec 2025 – Apr 2026",
+    bullets: [
+      "Built a service request and AMC/CMC contract tracking platform used by hospitals to manage equipment maintenance workflows",
+      "Implemented real-time technician location tracking for field service visibility",
+      "Integrated an AI chat agent for self-diagnosis and troubleshooting before dispatching technicians",
+      "Shipped cross-platform native apps for Android and iOS alongside the web dashboard",
     ],
   },
   {
     company: "SinXSolutions",
     location: "Dubai, Remote",
     title: "Full Stack & AI Engineer",
-    date: "Aug 2024 – May 2025",
+    date: "June 2024 – May 2025",
     bullets: [
-      "Developed AI-powered ecommerce intelligence suite using OpenAI embeddings and Qdrant, increasing AOV through personalized recommendations",
-      "Built admin dashboard with AI-powered PIM system for automated product data generation and real-time inventory tracking",
-      "Deployed infrastructure using Docker, Nginx, and Proxmox VPS, reducing operational costs by 65%",
-      "Implemented CI/CD pipelines using GitHub Actions and Coolify for reliable automated deployments",
-      "Engineered AI automation systems with MAKE.com, n8n, OpenAI, Anthropic, and ElevenLabs, reducing lead processing time by 65%",
-      "Built e-commerce platform (Next.js, Prisma, PostgreSQL, Django) improving procurement efficiency by 30%",
-      "Integrated AI copilots with deep DB/tool access improving search precision by 40%",
-      "Developed AI career platform with ATS optimization and job-matching agents improving relevance by 40%",
-      "Built AI interview system with voice agents improving performance by 50%",
-      "Created personalized learning roadmap system increasing skill acquisition by 45%",
-      "Architected AI tech newsletter platform with automated aggregation and ranking achieving 92% accuracy",
-      "Developed social media AI agents delivering 3x better content relevance",
-      "Implemented personalized delivery using Resend improving engagement and retention",
+      "Worked on a RAG-powered recommendation and bundling engine using embedding models and Qdrant db, driving personalized product discovery/promotions and increased AOV",
+      "Developed admin dashboard with AI-powered PIM for automated product data generation and real-time inventory tracking",
+      "Deployed self-hosted internal operations infrastructure on Proxmox-managed VPS with Docker and Nginx, reducing operational costs by 60%",
+      "Set up CI/CD pipelines with GitHub Actions: automated testing, preview deployments, and zero-downtime production releases",
+      "Built AI automation workflows using MAKE.com, n8n, LLMs, and voice agents for lead processing and internal ops",
+      "Developed MyCareergrowth.ai, an AI career platform with ATS-optimized resume generation, agentic job search & application, voice-based mock interviews with feedback system, and personalized learning roadmaps with ai curated and generated courses",
     ],
   },
 ];
@@ -96,48 +96,72 @@ export const education = {
   date: "2022 – 2026",
 };
 
-const PLACEHOLDER_IMAGE =
-  "https://www.shadcnblocks.com/images/block/placeholder-dark-1.svg";
+export interface GalleryLink {
+  label: string;
+  url: string;
+  thumbnail?: string;
+}
 
-export const galleryItems = [
+export interface GalleryItem {
+  id: string;
+  title: string;
+  summary: string;
+  url: string;
+  image: string;
+  links?: GalleryLink[];
+}
+
+export const galleryItems: GalleryItem[] = [
   {
     id: "item-1",
-    title: "AI Ecommerce Intelligence Suite",
+    title: "SabaiFlow",
     summary:
-      "AI-powered product recommendations using OpenAI embeddings and Qdrant vector search, increasing average order value through personalization.",
-    url: "#",
-    image: PLACEHOLDER_IMAGE,
+      "Hospitality operating system with POS, kitchen display, inventory, staff scheduling, and accounting, powered by agentic AI for smarter ops.",
+    url: "https://sabaiflow.co",
+    image: "/sabaiflow.png",
   },
   {
     id: "item-2",
-    title: "Dubai Police Training Platform",
+    title: "BeanBrewBeyond",
     summary:
-      "AI-powered training & certification platform with compliance tracking, analytics dashboards, and automated assessment workflows.",
-    url: "#",
-    image: PLACEHOLDER_IMAGE,
+      "Cafe chain PWA with mobile ordering, loyalty rewards, community features, and a brand showcase, built for seamless in-store and online experiences.",
+    url: "https://beanbrewbeyond.com",
+    image: "/beanbrewbeyond.png",
+    links: [
+      {
+        label: "Brand Site",
+        url: "https://beanbrewbeyond.com",
+        thumbnail: "/beanbrewbeyond.png",
+      },
+      {
+        label: "Ordering App",
+        url: "https://app.beanbrewbeyond.com",
+        thumbnail: "/beanbrewbeyond.png",
+      },
+    ],
   },
   {
     id: "item-3",
-    title: "SaaS Hospitality Platform",
+    title: "Synthopia",
     summary:
-      "End-to-end hospitality management integrating POS, accounting, inventory, and staff scheduling with predictive demand forecasting.",
-    url: "#",
-    image: PLACEHOLDER_IMAGE,
+      "AI marketing platform with 7+ specialized agents that generate on-brand content across 8 channels in one click, with brand analysis, content calendar, and competitor intelligence.",
+    url: "https://synthopia.ai",
+    image: "/synthopia.png",
   },
   {
     id: "item-4",
-    title: "AI Career Platform",
+    title: "Vida Life",
     summary:
-      "Career platform with ATS optimization, job-matching agents, AI interview system with voice agents, and personalized learning roadmaps.",
-    url: "#",
-    image: PLACEHOLDER_IMAGE,
+      "Service request and AMC/CMC tracking platform for hospital equipment, with real-time technician location, AI chat for self-diagnosis, and native apps on Android and iOS.",
+    url: "https://app.vidalife.in",
+    image: "/vida.png",
   },
   {
     id: "item-5",
-    title: "AI Tech Newsletter Engine",
+    title: "Serenaya",
     summary:
-      "Automated content aggregation and ranking platform achieving 92% accuracy, with personalized delivery via Resend.",
-    url: "#",
-    image: PLACEHOLDER_IMAGE,
+      "Luxury skincare e-commerce built around African-sourced ingredients, with curated product rituals, bundle builder, testimonials, and newsletter-driven community.",
+    url: "https://serenaya.co",
+    image: "/serenaya.png",
   },
 ];

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { about, socials } from "@/data/data";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -36,34 +36,29 @@ export default function Profile() {
       </div>
       <h1 className="text-3xl font-bold mt-3">{about.name}</h1>
       <p className="text-lg text-gray-600 mt-1">{about.role}</p>
-      <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-1">
-        <MapPin className="size-3.5" />
-        <span>{about.location}</span>
-      </div>
-      <div className="flex items-center mt-4 gap-4">
-        <a
-          href={socials.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-600 hover:text-gray-900 transition-colors"
-          aria-label="GitHub"
-        >
-          <GithubIcon className="size-5" />
-        </a>
-        <a
-          href={socials.email}
-          className="text-gray-600 hover:text-gray-900 transition-colors"
-          aria-label="Email"
-        >
-          <Mail className="size-5" />
-        </a>
-        <a
-          href={`tel:${about.phone}`}
-          className="text-gray-600 hover:text-gray-900 transition-colors"
-          aria-label="Phone"
-        >
-          <Phone className="size-5" />
-        </a>
+      <div className="flex items-center justify-between w-full mt-1">
+        <div className="flex items-center gap-1.5 text-sm text-gray-500">
+          <MapPin className="size-3.5" />
+          <span>{about.location}</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <a
+            href={socials.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-900 transition-colors"
+            aria-label="GitHub"
+          >
+            <GithubIcon className="size-[18px]" />
+          </a>
+          <a
+            href={socials.email}
+            className="text-gray-500 hover:text-gray-900 transition-colors"
+            aria-label="Email"
+          >
+            <Mail className="size-[18px]" />
+          </a>
+        </div>
       </div>
     </div>
   );
