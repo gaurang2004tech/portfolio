@@ -12,7 +12,16 @@ export default function Experience() {
               <div>
                 <h3 className="text-lg font-semibold">{role.title}</h3>
                 <p className="text-sm text-gray-500">
-                  {role.company} &middot; {role.location}
+                  <a
+                    href={role.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 decoration-gray-300 hover:decoration-gray-500 hover:text-gray-900 transition-colors inline-flex items-center gap-0.5"
+                  >
+                    {role.company}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg>
+                  </a>
+                  {" "}&middot; {role.location}
                 </p>
               </div>
               <time className="text-sm text-gray-500 mt-1 sm:mt-0 shrink-0">

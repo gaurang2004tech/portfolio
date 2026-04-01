@@ -47,14 +47,15 @@ export const skills = [
 
 export const experience = [
   {
-    company: "PixelV",
+    company: "Pixelated Vectors",
+    url: "https://pixelv.ai",
     location: "Dubai, Remote",
     title: "CTO",
     date: "June 2025 – Present",
     bullets: [
       "Own hiring, system architecture, technical direction, and stakeholder communication across all product lines",
       "Built AI-powered training & certification platform for Dubai Police with compliance tracking and analytics dashboards",
-      "Engineered AI onboarding pipeline with document processing and CV-based candidate segmentation, reducing onboarding time by 75%",
+      "Built AI candidate screening pipeline that scores document authenticity and CV quality to auto-prioritize high-potential applicants, reducing onboarding time by 75%",
       "Architected SabaiFlow, a hospitality OS integrating POS, KDS, inventory, staff scheduling, and accounting with agentic AI features",
       "Built Synthopia, a multi-agent AI marketing platform with brand analysis, content generation across 8 channels, and competitor intelligence",
       "Shipped BeanBrewBeyond, a PWA ordering platform for a cafe chain with loyalty rewards, community features, and kitchen order flows",
@@ -63,7 +64,8 @@ export const experience = [
   },
   {
     company: "Vida Life Sciences",
-    location: "Pune, India",
+    url: "https://app.vidalife.in",
+    location: "Pune, Remote",
     title: "Full Stack & AI Engineer",
     date: "Dec 2025 – Apr 2026",
     bullets: [
@@ -75,6 +77,7 @@ export const experience = [
   },
   {
     company: "SinXSolutions",
+    url: "https://sinxsolutions.ai",
     location: "Dubai, Remote",
     title: "Full Stack & AI Engineer",
     date: "June 2024 – May 2025",
