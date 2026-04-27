@@ -1,3 +1,5 @@
+import { url } from "inspector";
+
 export const about = {
   name: "Gaurang Raut",
   role: "Full Stack developer",
@@ -47,6 +49,20 @@ export const experience = [
       "Shipped cross-platform native apps for Android and iOS alongside the web dashboard",
     ],
   },
+ {
+    company: "SmartDine OS",
+  url: "https://smart-dine-app-six.vercel.app/",
+  location: "Pune, Remote",
+ title: "SmartDine OS (In Progress)",
+    date: "March 2026 – Present",
+    bullets: [
+     "SmartDine OS is a premium, full-stack restaurant management and automated ordering ecosystem. It bridges the gap between digital convenience and gourmet excellence through a real-time backend, an executive web portal, and a high-fidelity mobile experience.",
+    "SmartDine is built as a three-tier system each layer meticulously crafted to deliver a seamless dining experience:",
+"Backend (API): A robust Node.js & Express server with Socket.io for live updates and MongoDB for data persistence.",
+"Web Portal (Admin & Kitchen): A professional React + Vite dashboard for restaurant owners and kitchen staff.",
+"Mobile App (Customer): A sleek Expo/React Native application for customers to scan QRs, order, and track their food"
+    ],
+ },
   {
     url: "https://game-ebon-xi.vercel.app/",
     location: "Talegaon Dabhde , Remote",
@@ -93,6 +109,15 @@ export const galleryItems: GalleryItem[] = [
     url: "https://app.vidalife.in",
     image: "/vida.png",
   },
+    {
+id: "item-3",
+    title: "SmartDine OS (In Progress)",
+    summary:
+      "A premium, full-stack restaurant management and automated ordering ecosystem.",
+    image: "/SmartDineOS.png",
+     url: "https://smart-dine-app-six.vercel.app/",
+  },
+
    {
     id: "item-5",
     title: "Rock, Paper, Scissors Game",
