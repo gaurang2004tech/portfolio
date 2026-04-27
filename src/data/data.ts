@@ -39,7 +39,7 @@ export const experience = [
     url: "https://app.vidalife.in",
     location: "Pune, Remote",
     title: "Full Stack Developer",
-    date: "Dec 2025 – Apr 2026",
+    date: "Dec 2025 – Present",
     bullets: [
       "Built a service request and AMC/CMC contract tracking platform used by hospitals to manage equipment maintenance workflows",
       "Implemented real-time technician location tracking for field service visibility",
